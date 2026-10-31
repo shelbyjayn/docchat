@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "docchat-shelbytang"
-version = "0.1.0"
+version = "0.2.0"
 readme = "README.md"
 dependencies = ["groq", "python-dotenv"]
 
@@ -13,3 +13,4 @@ chat = "chat:repl"
 
 [tool.setuptools]
 py-modules = ["chat"]
+packages = ["tools"]
