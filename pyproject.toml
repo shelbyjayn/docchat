@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "docchat-shelbytang"
+version = "0.1.0"
+description = "A pirate chatbot that remembers the conversation"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "groq",
+    "python-dotenv",
+]
+
+[tool.setuptools]
+py-modules = ["chat"]
+
+[project.scripts]
+chat = "chat:repl"
