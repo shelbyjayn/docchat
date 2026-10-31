@@ -27,14 +27,14 @@ def cat(path):
     >>> cat('docs')
     'Error: could not read docs'
     >>> cat('/etc/passwd')
-    'Error: unsafe path /etc/passwd'
+    'Error: unsafe path rejected'
     >>> cat('../notes.txt')
-    'Error: unsafe path ../notes.txt'
+    'Error: unsafe path rejected'
     >>> os.chdir(start)
     >>> folder.cleanup()
     """
     if not is_path_safe(path):
-        return f'Error: unsafe path {path}'
+        return 'Error: unsafe path rejected'
     try:
         return read_text(path)
     except FileNotFoundError:

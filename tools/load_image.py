@@ -25,9 +25,9 @@ def load_image(chat, path):
     >>> block['type'], block['image_url']['url']
     ('image_url', 'data:image/png;base64,iVBORw0KGgpwaXhlbHM=')
     >>> load_image(chat, '/tmp/dot.png')
-    'Error: unsafe path /tmp/dot.png'
+    'Error: unsafe path rejected'
     >>> load_image(chat, '../dot.png')
-    'Error: unsafe path ../dot.png'
+    'Error: unsafe path rejected'
     >>> load_image(chat, 'missing.png')
     'Error: could not read missing.png'
     >>> with open('notes.txt', 'w') as f:
@@ -40,7 +40,7 @@ def load_image(chat, path):
     >>> folder.cleanup()
     """
     if not is_path_safe(path):
-        return f'Error: unsafe path {path}'
+        return 'Error: unsafe path rejected'
     try:
         with open(path, 'rb') as f:
             data = f.read()

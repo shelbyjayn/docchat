@@ -129,14 +129,17 @@ class ScriptedModel:
     """
 
     def __init__(self, replies):
+        """Store the prepared replies and start with no recorded requests."""
         self.replies = list(replies)
         self.requests = []
         self.chat = SimpleNamespace(completions=SimpleNamespace(create=self.create))
 
     def __call__(self, *args, **kwargs):
+        """Return this model, so it can stand in for the Groq class itself."""
         return self
 
     def create(self, **kwargs):
+        """Record the request's messages and return the next prepared reply."""
         self.requests.append(copy.deepcopy(kwargs['messages']))
         reply = self.replies.pop(0)
         if isinstance(reply, str):
@@ -265,6 +268,7 @@ class Chat:
     """
 
     def __init__(self, system=SYSTEM_PROMPT, debug=False):
+        """Start a conversation with one system message and optional debug output."""
         self.messages = [{'role': 'system', 'content': system}]
         self.debug = debug
 
@@ -372,7 +376,7 @@ class Chat:
         >>> chat.messages[-1]['content']
         'I ran /calculate 2 + 3 * 4 and got:\\n14'
         >>> chat.run_command('/cat /etc/passwd')
-        'Error: unsafe path /etc/passwd'
+        'Error: unsafe path rejected'
         >>> chat.run_command('/cat')
         "Error: cat() missing 1 required positional argument: 'path'"
         >>> chat.run_command('/rm notes.txt')

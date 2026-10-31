@@ -40,14 +40,14 @@ def grep(regex, path):
     >>> grep('(unclosed', '*.py')
     'Error: invalid regex (unclosed'
     >>> grep('root', '/etc/passwd')
-    'Error: unsafe path /etc/passwd'
+    'Error: unsafe path rejected'
     >>> grep('TODO', '../*.py')
-    'Error: unsafe path ../*.py'
+    'Error: unsafe path rejected'
     >>> os.chdir(start)
     >>> folder.cleanup()
     """
     if not is_path_safe(path):
-        return f'Error: unsafe path {path}'
+        return 'Error: unsafe path rejected'
     try:
         pattern = re.compile(regex)
     except re.error:

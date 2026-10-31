@@ -35,14 +35,14 @@ def ls(path='.'):
     >>> ls('nowhere')
     'Error: nowhere does not exist'
     >>> ls('/etc')
-    'Error: unsafe path /etc'
+    'Error: unsafe path rejected'
     >>> ls('..')
-    'Error: unsafe path ..'
+    'Error: unsafe path rejected'
     >>> os.chdir(start)
     >>> folder.cleanup()
     """
     if not is_path_safe(path):
-        return f'Error: unsafe path {path}'
+        return 'Error: unsafe path rejected'
     if os.path.isfile(path):
         return path
     if not os.path.isdir(path):
