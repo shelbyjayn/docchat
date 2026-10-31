@@ -1,9 +1,9 @@
 import os
-from dotenv import load_dotenv
+from dotenv import find_dotenv, load_dotenv
 from groq import Groq
 
-load_dotenv()
-client = Groq(api_key=os.environ.get('GROQ_API_KEY'))
+load_dotenv(find_dotenv(usecwd=True))
+client = Groq(api_key=os.environ.get('GROQ_API_KEY') or 'missing-key')
 
 
 def llm(messages, temperature=1):
